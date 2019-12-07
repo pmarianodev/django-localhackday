@@ -1,0 +1,52 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel" style="border-radius: 20px">
+                <div class="x_title">
+                    <label style="font-size: xx-large;">Filmes</label>
+                    <ul class="nav navbar-right">
+                        <a href="{% url 'cadFilme' %}" class="btn btn-primary">
+                            CADASTRAR NOVO FILME</a>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Título</th>
+                                    <th class="text-center">Diretor</th>
+                                    <th class="text-center">Duração</th>
+                                    <th class="text-center">Data de Lançamento</th>
+                                    <th class="text-center">Atores</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for filme in listaDeFilmes %}
+                                    <tr>
+                                        <td class="text-center">{{ filme.titulo }}</td>
+                                        <td class="text-center">{{ filme.diretor }}</td>
+                                        <td class="text-center">{{ filme.minutos }}</td>
+                                        <td class="text-center">{{ filme.dataLancamento }}</td>
+                                        <td class="text-center">
+                                            <a href="{% url 'atoresFilme' filme.id %}"> Acessar </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

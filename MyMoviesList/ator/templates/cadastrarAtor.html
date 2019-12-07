@@ -1,0 +1,103 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block main %}
+
+    <!-- Script para Duplicar entidades no HTML-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            function removeCampo() {
+                $("removerCampo").off("click");
+                $(".removerCampo").on("click", function () {
+                    if ($("div.linhas").length > 1) {
+                        $(this).parent().parent().remove();
+                    }
+                });
+            }
+
+            $(".adicionarCampo").on("click", function () {
+                novoCampo = $("div.linhas:first").clone();
+                novoCampo.find("input").val("");
+                novoCampo.insertAfter("div.linhas:last");
+                removeCampo();
+            });
+        });
+    </script>
+
+
+    <div class="col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12"><br>
+                <div class="x_panel">
+                    <div class="x_title">
+                        <p style="font-size: 20px;">CADASTRAR OS DADOS DO ATOR: </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="x_content">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-5 form-group text-right">
+                                    <div class="col inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> Nome:</span>
+                                            <input required type="text" placeholder="Nome" class="form-control"
+                                                   name="nome"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 form-group text-left">
+                                    <div class="col inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> Idade:</span>
+                                            <input required type="number"
+                                                   placeholder="18" class="form-control"
+                                                   min="0"
+                                                   name="idade"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-5 form-group">
+                                    <div class="col inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> Salário: R$</span>
+                                            <input required type="number" placeholder="10000921.00" class="form-control"
+                                                   name="salario"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 form-group">
+                                    <div class="col inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> Data Nascimento:</span>
+                                            <input required type="date" class="form-control"
+                                                   name="dataNascimento"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-9"></div>
+                                <div class="col-md-2 ">
+                                    <button type="submit" class="btn btn-success" style="width: 100%;"> Salvar
+                                    </button>
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

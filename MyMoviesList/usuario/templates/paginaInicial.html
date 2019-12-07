@@ -1,0 +1,73 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12"><br>
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 style="font-size: 22px;">ALERTAS</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h3>Há {{ qntFilmes }} filmes para serem vistos ainda!</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for filme in listaDeFilmes %}
+        <div class="col-md-6 col-sm-6 col-xs-6"><br>
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 style="font-size: 22px;">Filme: {{ filme.titulo }}</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <ul class="nav navbar-right">
+                            <button class="btn btn-success"
+                                    type="submit"
+                                    name="btnEnviar"
+                                    value="{{ filme.id }}">Assistido
+                            </button>
+                        </ul>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label style="font-size: medium">
+                                Diretor: {{ filme.diretor }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label style="font-size: medium">Diretor: {{ filme.diretor }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label style="font-size: medium">Duração: {{ filme.minutos }} minutos</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label style="font-size: medium">Data de Lançamento: {{ filme.dataLancamento }} </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <a href="{% url 'atoresFilme' filme.id %}" style="font-size: medium">Atores</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

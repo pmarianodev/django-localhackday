@@ -1,0 +1,48 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel" style="border-radius: 20px">
+                <div class="x_title">
+                    <label style="font-size: xx-large;">Filmes</label>
+                    <ul class="nav navbar-right">
+                        <a href="{% url 'cadAtor' %}" class="btn btn-primary">
+                            CADASTRAR NOVO ATOR</a>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Nome</th>
+                                    <th class="text-center">Idade</th>
+                                    <th class="text-center">Salário</th>
+                                    <th class="text-center">Data de Nascimento</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for atore in listaDeAtores %}
+                                    <tr>
+                                        <td class="text-center">{{ atore.nome }}</td>
+                                        <td class="text-center">{{ atore.idade }}</td>
+                                        <td class="text-center">{{ atore.salario }}</td>
+                                        <td class="text-center">{{ atore.dataNascimento }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

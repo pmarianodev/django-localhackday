@@ -1,0 +1,148 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block main %}
+
+    <!-- Script para Duplicar entidades no HTML-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            function removeCampo() {
+                $("removerCampo").off("click");
+                $(".removerCampo").on("click", function () {
+                    if ($("div.linhas").length > 1) {
+                        $(this).parent().parent().remove();
+                    }
+                });
+            }
+
+            $(".adicionarCampo").on("click", function () {
+                novoCampo = $("div.linhas:first").clone();
+                novoCampo.find("input").val("");
+                novoCampo.insertAfter("div.linhas:last");
+                removeCampo();
+            });
+        });
+    </script>
+
+
+    <div class="col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12"><br>
+                <div class="x_panel">
+                    <div class="x_title">
+                        <p style="font-size: 20px;">CADASTRAR FILME: </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="x_content">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-5 form-group text-right">
+                                    <div class="col inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> Título: </span>
+                                            <input required type="text" placeholder="Título"
+                                                   class="form-control"
+                                                   name="titulo"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 form-group text-left">
+                                    <div class="col inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> Diretor: </span>
+                                            <input required type="text"
+                                                   placeholder="Código_Font"
+                                                   class="form-control"
+                                                   name="diretor"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-5 form-group">
+                                    <div class="col inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> Duração (Minutos): </span>
+                                            <input required
+                                                   type="number"
+                                                   placeholder="172"
+                                                   min="1"
+                                                   class="form-control"
+                                                   name="minutos"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 form-group">
+                                    <div class="col inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> Data Lançamento:</span>
+                                            <input required type="date" class="form-control"
+                                                   name="dataLancamento"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="linhas">
+                                <div class="col-md-4"></div>
+
+                                <div class="col-md-4 form-group">
+                                    <div class="col inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> Nome: </span>
+                                            <select name="ator[]" class="form-control" required>
+                                                <option value="">Selecione</option>
+                                                {% for ator in listaDeAtores %}
+                                                    <option value="{{ ator.id }}">
+                                                        {{ ator.nome }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label title="É possível selecionar vários atores">
+                                        <i class="far fa-question-circle fa-2x" style="padding-left: 3%"></i>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <a class="removerCampo" title="Remover linha">
+                                        <i class="fas fa-minus-circle fa-2x" style="padding-left: 3%"></i>
+                                        <label>Remove linha</label>
+                                    </a>
+                                </div><!-- fim div do JS dinamico -->
+                            </div>
+
+                            <div class="col-md-12 text-center">
+                                <a class="adicionarCampo" title="Adicionar linha">
+                                    <i class="fas fa-plus-circle fa-2x" style="padding-left: 3%"></i>
+                                    <label>Adiciona linha</label>
+                                </a>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-9"></div>
+                                <div class="col-md-2 ">
+                                    <button type="submit" class="btn btn-success" style="width: 100%;"> Salvar
+                                    </button>
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
